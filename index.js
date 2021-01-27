@@ -1,4 +1,4 @@
-/*
+ /*
   EXAMPLE TASK:
     - Write an Airplane constructor that initializes `name` from an argument.
     - All airplanes built with Airplane should initialize with an `isFlying` of false.
@@ -9,24 +9,23 @@
 
 // EXAMPLE SOLUTION CODE:
 function Airplane(name) {
-    this.name = name;
-    this.isFlying = false;
-  }
-  Airplane.prototype.takeOff = function () {
-    this.isFlying = true;
-  };
-  Airplane.prototype.land = function () {
-    this.isFlying = false;
-  };
-  
-  
-  /*
+  this.name = name;
+  this.isFlying = false;
+}
+Airplane.prototype.takeOff = function () {
+  this.isFlying = true;
+};
+Airplane.prototype.land = function () {
+  this.isFlying = false;
+};
+
+/*
   // 👇 COMPLETE YOUR WORK BELOW 👇
   // 👇 COMPLETE YOUR WORK BELOW 👇
   // 👇 COMPLETE YOUR WORK BELOW 👇
   */
-  
-  /*
+
+/*
     TASK 1
       - Write a Person Constructor that initializes `name` and `age` from arguments.
       - All instances of Person should initialize with an empty `stomach` array.
@@ -38,18 +37,46 @@ function Airplane(name) {
       - Give instances of Person a method `.toString()`:
           + It should return a string with `name` and `age`. Example: "Mary, 50"
   */
-  
- function Person() {
-    
-  }
- 
- 
 
-  
-  
-  
-  
-  /*
+function Person(name, age) {
+  (this.name = name),
+    (this.age = age),
+    (this.stomach = []),
+    (this.eat = function (food) {
+      if (this.stomach.length < 10) {
+        this.stomach.push(food);
+      } else if (this.stomach.length >= 10) {
+        console.log("NO MORE!");
+      }
+    }),
+    (this.poop = function () {
+      this.stomach = [];
+    }),
+    (this.toString = function () {
+      return ` My name is ${this.name} and im ${this.age}.`;
+    });
+}
+let gavin = new Person("Gavin", 28);
+gavin.eat("Chicken Enchillada");
+console.log(gavin.stomach);
+
+Person.prototype.eat = (food) => {
+  if (this.stomach.length < 10) {
+    this.stomach.push(food);
+  } else if (this.stomach.length >= 10) {
+    console.log("NO MORE!");
+  }
+};
+
+Person.prototype.poop = () => {
+  this.stomach = [];
+};
+
+Person.prototype.toString = () => {
+  return ` My name is ${this.name} and im ${this.age}.`;
+};
+
+/*
     TASK 2
       - Write a Car constructor that initializes `model` and `milesPerGallon` from arguments.
       - All instances built with Car:
@@ -62,33 +89,49 @@ function Airplane(name) {
       - STRETCH: A car which runs out of `fuel` while driving can't drive any more distance:
           + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
   */
-  
- function Car() {
-    
-  }
-  
-  
-  /*
+
+function Car(model, milesPerGallon) {
+  (this.model = model),
+    (this.milesPerGallon = milesPerGallon),
+    (this.tank = 0),
+    (this.odometer = 0),
+    (this.fill = function (gallons) {
+      this.tank += gallons;
+    });
+}
+Car.prototype.fill = function (gallons) {
+  this.tank += gallons;
+};
+
+/*
     TASK 3
       - Write a Baby constructor subclassing Person.
       - Besides `name` and `age`, Baby takes a third argument to initialize `favoriteToy`.
       - Besides the methods on Person.prototype, babies have the ability to `.play()`:
           + Should return a string "Playing with x", x being the favorite toy.
   */
- function Baby() {
-   
-  }
- 
-  
-  /* 
+function Baby(name, age, favoriteToy) {
+  Person.call(this, name, age);
+  (this.favoriteToy = favoriteToy),
+    (this.play = function () {
+      return ` Playing with ${favoriteToy}`;
+    });
+}
+
+Baby.prototype = Object.create(Person.prototype);
+
+Baby.prototype.play = function () {
+  return ` Playing with ${this.favoriteToy}`;
+};
+
+/* 
     TASK 4
     In your own words explain the four principles for the "this" keyword below:
-    1. 
-    2. 
-    3. 
-    4. 
+    1. Implicit binding: using dot notation and refering to whats to the left of it 
+    2. Explicit binding: When 'this' is being very specific when using .call
+    3. New binding: When 'this' is creating a new constructor refering to what is created after the constructor
+    4. Window binding: When 'this' is bound to the whole window 
   */
-  
   
   ///////// END OF CHALLENGE /////////
 
